@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zia Hasan, PhD — Neurogenomics & Neuroinformatics</title>
+<meta name="description" content="Postdoctoral Fellow in Neurosciences at Memorial University of Newfoundland.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --white:    #ffffff;
+  --bg:       #f6f8fc;
+  --line:     #e6ecf4;
+  --line2:    #eef2f8;
+  --text:     #0f1722;
+  --text2:    #374151;
+  --text3:    #6b7280;
+  --text4:    #9ca3af;
+  --blue:     #1d4ed8;
+  --blue-lt:  #eff6ff;
+  --blue-md:  #dbeafe;
+  --teal:     #0f766e;
+  --teal2:    #0d9488;
+  --teal-lt:  #f0fdfa;
+  --teal-md:  #99f6e4;
+  --r:        12px;
+  --shadow:   0 1px 3px rgba(16,28,48,.04), 0 6px 24px rgba(16,28,48,.05);
+  --shadow-h: 0 4px 12px rgba(13,148,136,.08), 0 18px 48px rgba(16,28,48,.10);
+  --display:  'Cormorant Garamond', Georgia, serif;
+  --body:     'Inter', system-ui, sans-serif;
+  --mono:     'JetBrains Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: var(--teal); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── ANIMATED BACKGROUND ── */
+.bg-canvas {
+  position: fixed; inset: 0; z-index: -2;
+  background: var(--bg);
+}
+.bg-canvas::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(620px circle at 12% 8%, rgba(13,148,136,.07), transparent 60%),
+    radial-gradient(580px circle at 88% 22%, rgba(29,78,216,.06), transparent 55%),
+    radial-gradient(680px circle at 50% 92%, rgba(13,148,136,.05), transparent 60%);
+  animation: drift 22s ease-in-out infinite alternate;
+}
+@keyframes drift {
+  0%   { transform: translate3d(0,0,0) scale(1); }
+  50%  { transform: translate3d(-1.5%, 1.5%, 0) scale(1.04); }
+  100% { transform: translate3d(1.5%, -1%, 0) scale(1.02); }
+}
+/* subtle grid */
+.bg-canvas::after {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(15,118,110,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,118,110,.035) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(circle at 50% 30%, #000 0%, transparent 78%);
+  -webkit-mask-image: radial-gradient(circle at 50% 30%, #000 0%, transparent 78%);
+}
+
+/* scroll progress bar */
+.progress {
+  position: fixed; top: 0; left: 0; height: 2.5px; width: 0%;
+  background: linear-gradient(90deg, var(--teal), var(--blue));
+  z-index: 200; transition: width .1s linear;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(246,248,252,.8);
+  backdrop-filter: blur(16px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+}
+.nav-w {
+  max-width: 820px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .85rem 2rem;
+}
+.nav-logo {
+  font-family: var(--display);
+  font-size: 1.3rem; font-weight: 600; font-style: italic;
+  color: var(--text); letter-spacing: .01em;
+  position: relative;
+}
+.nav-logo::after {
+  content: ''; position: absolute; left: 0; bottom: -2px;
+  width: 0; height: 1.5px; background: var(--teal);
+  transition: width .3s ease;
+}
+.nav-logo:hover::after { width: 100%; }
+.nav-r { display: flex; align-items: center; gap: 1.7rem; }
+.nav-r a { font-size: .78rem; font-weight: 500; color: var(--text3); transition: color .15s; position: relative; }
+.nav-r a:not(.nav-btn)::after {
+  content: ''; position: absolute; left: 0; bottom: -4px;
+  width: 0; height: 1.5px; background: var(--teal); transition: width .25s ease;
+}
+.nav-r a:not(.nav-btn):hover { color: var(--teal); text-decoration: none; }
+.nav-r a:not(.nav-btn):hover::after { width: 100%; }
+.nav-btn {
+  padding: .4rem 1rem; border-radius: 100px;
+  background: var(--teal); color: #fff !important;
+  font-size: .75rem !important; font-weight: 500 !important;
+  transition: transform .2s, box-shadow .2s !important;
+  box-shadow: 0 2px 10px rgba(15,118,110,.25);
+}
+.nav-btn:hover { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(15,118,110,.32); text-decoration: none; }
+.hbg { display: none; flex-direction: column; gap: 4px; cursor: pointer; padding: 4px; }
+.hbg span { display: block; width: 20px; height: 1.5px; background: var(--text2); transition: .25s; }
+.hbg.x span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+.hbg.x span:nth-child(2) { opacity: 0; }
+.hbg.x span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+.mob-nav { display: none; flex-direction: column; background: rgba(255,255,255,.97); border-bottom: 1px solid var(--line); }
+.mob-nav.open { display: flex; }
+.mob-nav a { padding: .75rem 2rem; font-size: .88rem; color: var(--text2); border-bottom: 1px solid var(--line2); }
+
+/* ── HERO ── */
+#hero { padding: 4.5rem 2rem 3.5rem; }
+.hero-w {
+  max-width: 820px; margin: 0 auto;
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: 3rem; align-items: start;
+}
+
+/* Photo */
+.hero-photo-col { display: flex; flex-direction: column; align-items: center; gap: 1.1rem; }
+.photo-ring {
+  position: relative;
+  width: 180px; height: 180px; border-radius: 50%;
+  padding: 4px;
+  background: conic-gradient(from 180deg, var(--teal), var(--blue), var(--teal2), var(--teal));
+  box-shadow: 0 8px 30px rgba(15,118,110,.18);
+  flex-shrink: 0;
+  animation: spin-ring 14s linear infinite;
+}
+@keyframes spin-ring { to { transform: rotate(360deg); } }
+.photo-inner {
+  width: 100%; height: 100%; border-radius: 50%;
+  overflow: hidden; background: var(--bg);
+  border: 3px solid var(--white);
+  animation: spin-ring 14s linear infinite reverse;
+}
+.photo-inner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-placeholder {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #dde8f5 0%, #c2d5eb 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+}
+.photo-placeholder svg { width: 48px; height: 48px; color: #8fa8c8; }
+.photo-placeholder span { font-size: .6rem; color: #8fa8c8; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
+
+.photo-links { display: flex; flex-direction: column; gap: .38rem; width: 100%; }
+.plink {
+  display: flex; align-items: center; gap: .42rem;
+  font-size: .72rem; color: var(--text3);
+  padding: .38rem .6rem; border-radius: 8px;
+  border: 1px solid var(--line); background: rgba(255,255,255,.7);
+  transition: border-color .18s, color .18s, background .18s, transform .18s;
+}
+.plink:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-lt); text-decoration: none; transform: translateX(3px); }
+.plink svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+/* Hero info */
+.hero-status {
+  display: inline-flex; align-items: center; gap: .45rem;
+  background: rgba(240,253,250,.8); color: var(--teal);
+  border: 1px solid var(--teal-md);
+  font-size: .67rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase;
+  padding: .26rem .7rem; border-radius: 100px; margin-bottom: .9rem;
+}
+.hero-status .pulse {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--teal);
+  box-shadow: 0 0 0 0 rgba(15,118,110,.5);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(15,118,110,.45); }
+  70%  { box-shadow: 0 0 0 7px rgba(15,118,110,0); }
+  100% { box-shadow: 0 0 0 0 rgba(15,118,110,0); }
+}
+
+.hero-name {
+  font-family: var(--display);
+  font-size: clamp(2.6rem, 5.5vw, 3.7rem);
+  font-weight: 600; line-height: 1.03;
+  color: var(--text); margin-bottom: .4rem;
+  letter-spacing: -.01em;
+}
+.hero-name em {
+  font-style: italic; font-weight: 500;
+  background: linear-gradient(120deg, var(--teal), var(--blue));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-sub { font-size: .88rem; color: var(--text3); margin-bottom: 1.1rem; }
+.hero-summary {
+  font-size: .87rem; color: var(--text2); line-height: 1.8;
+  margin-bottom: 1.5rem;
+  border-left: 2px solid var(--teal-md); padding-left: .95rem;
+}
+.hero-summary em { font-style: italic; }
+
+/* ── SEGMENT ── */
+.seg {
+  position: relative;
+  background: rgba(255,255,255,.72);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--line);
+  border-radius: var(--r); padding: 1.25rem 1.45rem;
+  box-shadow: var(--shadow);
+  transition: transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s, border-color .3s;
+}
+.seg:hover { transform: translateY(-3px); box-shadow: var(--shadow-h); border-color: var(--teal-md); }
+.seg::before {
+  content: ''; position: absolute; left: 0; top: 14px; bottom: 14px;
+  width: 3px; border-radius: 3px;
+  background: linear-gradient(var(--teal), var(--blue));
+  opacity: 0; transition: opacity .3s;
+}
+.seg:hover::before { opacity: 1; }
+
+.seg-label {
+  font-size: .63rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--teal);
+  font-family: var(--mono); margin-bottom: .85rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.seg-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent); }
+
+.seg-rows { display: flex; flex-direction: column; }
+.seg-row {
+  display: flex; align-items: flex-start; gap: .7rem;
+  padding: .7rem 0; border-bottom: 1px solid var(--line2);
+  transition: padding-left .25s ease;
+}
+.seg-row:first-child { padding-top: 0; }
+.seg-row:last-child  { border-bottom: none; padding-bottom: 0; }
+.seg-row:hover { padding-left: .35rem; }
+.dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0; margin-top: .44rem;
+  transition: transform .25s, box-shadow .25s;
+}
+.seg-row:hover .dot { transform: scale(1.5); }
+.dot-teal   { background: var(--teal);   box-shadow: 0 0 0 0 rgba(15,118,110,.3); }
+.dot-blue   { background: var(--blue); }
+.dot-gray   { background: var(--text4); }
+.dot-amber  { background: #d97706; }
+.dot-rose   { background: #e11d48; }
+.dot-indigo { background: #4f46e5; }
+.dot-green  { background: #16a34a; }
+
+.row-main { font-size: .85rem; font-weight: 600; color: var(--text); line-height: 1.3; }
+.row-sub  { font-size: .77rem; color: var(--text3); margin-top: .1rem; line-height: 1.5; }
+.row-note { font-size: .7rem;  color: var(--text4); font-family: var(--mono); margin-top: .1rem; }
+.row-desc { font-size: .77rem; color: var(--text2); margin-top: .28rem; line-height: 1.6; }
+
+.row-badge {
+  display: inline-block; font-size: .58rem; font-weight: 600;
+  letter-spacing: .05em; text-transform: uppercase;
+  padding: .1rem .42rem; border-radius: 4px; margin-bottom: .22rem;
+}
+.rb-first  { background: #fef9ee; color: #92400e; border: 1px solid #fde68a; }
+.rb-co1st  { background: var(--blue-lt); color: #1e3a8a; border: 1px solid var(--blue-md); }
+.rb-co     { background: var(--bg); color: var(--text4); border: 1px solid var(--line); }
+
+.row-right  { margin-left: auto; flex-shrink: 0; padding-top: .05rem; }
+.yr {
+  font-family: var(--mono); font-size: .68rem;
+  color: var(--text4); white-space: nowrap;
+  background: var(--bg); padding: .12rem .45rem; border-radius: 5px;
+  border: 1px solid var(--line);
+}
+
+.hero-edu { margin-bottom: 1.5rem; }
+
+/* buttons */
+.hero-btns { display: flex; gap: .55rem; flex-wrap: wrap; }
+.btn-p {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: var(--teal); color: #fff;
+  padding: .55rem 1.1rem; border-radius: 100px;
+  font-size: .8rem; font-weight: 500;
+  box-shadow: 0 3px 12px rgba(15,118,110,.25);
+  transition: transform .2s, box-shadow .2s;
+  position: relative; overflow: hidden;
+}
+.btn-p::after {
+  content: ''; position: absolute; top: 0; left: -120%;
+  width: 60%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+  transition: left .5s;
+}
+.btn-p:hover { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(15,118,110,.35); color: #fff; text-decoration: none; }
+.btn-p:hover::after { left: 130%; }
+.btn-o {
+  display: inline-flex; align-items: center; gap: .38rem;
+  border: 1px solid var(--line); color: var(--text2);
+  padding: .55rem 1.1rem; border-radius: 100px;
+  font-size: .8rem; font-weight: 500; background: rgba(255,255,255,.7);
+  transition: border-color .2s, color .2s, transform .2s;
+}
+.btn-o:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); text-decoration: none; }
+
+/* ── PAGE SECTIONS ── */
+.page-section { padding: 2.75rem 2rem; }
+.sec-w { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.2rem; }
+
+.sec-hd { display: flex; align-items: center; gap: .8rem; margin-bottom: .3rem; }
+.sec-tag {
+  font-family: var(--display);
+  font-size: 1.6rem; font-weight: 600; font-style: italic;
+  color: var(--text); white-space: nowrap; letter-spacing: .01em;
+}
+.sec-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--teal-md), transparent); }
+.sec-num { font-family: var(--mono); font-size: .7rem; color: var(--text4); }
+
+/* timeline inside seg */
+.tl-rows { display: flex; flex-direction: column; }
+.tl-row {
+  display: grid; grid-template-columns: 10px 1fr;
+  gap: 0 .9rem; position: relative;
+}
+.tl-row::before {
+  content: ''; position: absolute; left: 4px;
+  top: 18px; bottom: 0; width: 1.5px;
+  background: linear-gradient(var(--teal-md), var(--line2));
+}
+.tl-row:last-child::before { display: none; }
+.tl-dot-col { padding-top: .36rem; }
+.tl-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  border: 2px solid var(--line); background: var(--white); z-index: 1;
+  transition: transform .25s;
+}
+.tl-row:hover .tl-dot { transform: scale(1.3); border-color: var(--teal); }
+.tl-dot.on {
+  background: var(--teal); border-color: var(--teal);
+  box-shadow: 0 0 0 0 rgba(15,118,110,.4);
+  animation: pulse 2.2s infinite;
+}
+.tl-body { padding-bottom: 1.4rem; }
+.tl-row:last-child .tl-body { padding-bottom: 0; }
+.tl-date { font-size: .67rem; font-family: var(--mono); color: var(--text4); margin-bottom: .12rem; }
+.tl-role { font-size: .87rem; font-weight: 600; color: var(--text); }
+.tl-org  { font-size: .77rem; color: var(--teal); font-style: italic; margin-bottom: .38rem; }
+.tl-pts  { list-style: none; display: flex; flex-direction: column; gap: .18rem; }
+.tl-pts li {
+  font-size: .76rem; color: var(--text2);
+  padding-left: .78rem; position: relative; line-height: 1.6;
+}
+.tl-pts li::before { content: '▹'; position: absolute; left: 0; color: var(--teal); font-size: .7rem; }
+
+/* data note */
+.note-row {
+  display: flex; align-items: flex-start; gap: .65rem;
+  background: linear-gradient(135deg, rgba(240,253,250,.9), rgba(239,246,255,.7));
+  border: 1px solid var(--teal-md);
+  border-radius: var(--r); padding: .9rem 1.1rem;
+  font-size: .78rem; color: var(--text2); line-height: 1.65;
+}
+.note-row svg { width: 15px; height: 15px; color: var(--teal); flex-shrink: 0; margin-top: .12rem; }
+.note-row strong { font-weight: 600; color: var(--text); }
+
+/* ── FOOTER ── */
+footer { padding: 3rem 2rem 2.5rem; margin-top: 1rem; }
+.footer-w {
+  max-width: 820px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 1.1rem; text-align: center;
+}
+.footer-name {
+  font-family: var(--display);
+  font-size: 2rem; font-weight: 600; font-style: italic;
+  background: linear-gradient(120deg, var(--teal), var(--blue));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: .01em;
+}
+.footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+.footer-links a { font-size: .77rem; color: var(--text3); transition: color .15s, transform .15s; }
+.footer-links a:hover { color: var(--teal); text-decoration: none; transform: translateY(-1px); }
+.footer-cr { font-size: .68rem; font-family: var(--mono); color: var(--text4); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1); }
+.reveal.visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .bg-canvas::before, .photo-ring, .photo-inner, .hero-status .pulse, .tl-dot.on { animation: none; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 760px) {
+  .hero-w { grid-template-columns: 1fr; gap: 2rem; }
+  .hero-photo-col { flex-direction: row; align-items: center; gap: 1.4rem; }
+  .photo-ring { width: 104px; height: 104px; }
+  .photo-links { display: none; }
+}
+@media (max-width: 560px) {
+  .nav-r { display: none; }
+  .hbg { display: flex; }
+  .hero-w, #hero, .page-section { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .nav-w { padding: .85rem 1.25rem; }
+  .photo-ring { width: 124px; height: 124px; }
+  .sec-tag { font-size: 1.35rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="progress" id="progress"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-w">
+    <span class="nav-logo">Zia Hasan</span>
+    <div class="nav-r">
+      <a href="#expertise">Expertise</a>
+      <a href="#experience">Experience</a>
+      <a href="#publications">Publications</a>
+      <a href="#awards">Awards</a>
+      <a href="https://linkedin.com/in/smziahasan/" target="_blank" class="nav-btn">Connect →</a>
+    </div>
+    <div class="hbg" id="hbg" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="mob-nav" id="mobNav">
+    <a href="#expertise" onclick="toggleMenu()">Expertise</a>
+    <a href="#experience" onclick="toggleMenu()">Experience</a>
+    <a href="#publications" onclick="toggleMenu()">Publications</a>
+    <a href="#awards" onclick="toggleMenu()">Awards</a>
+    <a href="https://linkedin.com/in/smziahasan/" target="_blank" onclick="toggleMenu()">Connect →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-w">
+
+    <!-- LEFT -->
+    <div class="hero-photo-col">
+      <div class="photo-ring">
+        <div class="photo-inner">
+          <!-- Replace with: <img src="photo.jpg" alt="Zia Hasan"> -->
+          <div class="photo-placeholder">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+            </svg>
+            <span>Add Photo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="photo-links">
+        <a href="mailto:smzhasan@mun.ca" class="plink">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          smzhasan@mun.ca
+        </a>
+        <a href="https://linkedin.com/in/smziahasan/" target="_blank" class="plink">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/ziahasanz" target="_blank" class="plink">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          GitHub
+        </a>
+        <a href="https://researchgate.net/profile/Zia-Hasan-2" target="_blank" class="plink">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h.01M7 20v-4M12 20v-8M17 20V8M22 4v16"/></svg>
+          ResearchGate
+        </a>
+        <a href="https://scholar.google.com/citations?user=hqlMkcQAAAAJ" target="_blank" class="plink">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+          Google Scholar
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div>
+      <div class="hero-status"><span class="pulse"></span>Postdoctoral Fellow · MUN Faculty of Medicine</div>
+      <h1 class="hero-name">Zia Hasan, <em>PhD</em></h1>
+      <p class="hero-sub">Neurogenomics &amp; Neuroinformatics</p>
+      <p class="hero-summary" style="text-align: justify;">
+I combine deep biological intuition with rigorous computational expertise. As a neuroscientist with a track record of developing reproducible multi-omics pipelines on HPC and publishing first-author work in <em>Alzheimer's &amp; Dementia</em>, I understand high-dimensional data from tissue dissection to final visualization. I am currently seeking dedicated dry-lab opportunities specializing in single-cell, spatial, and single-cell epigenomics to decode complex neural disease mechanisms.
+      </p>
+
+      <div class="seg hero-edu">
+        <div class="seg-label">Education</div>
+        <div class="seg-rows">
+          <div class="seg-row">
+            <div class="dot dot-teal"></div>
+            <div>
+              <div class="row-main">Ph.D. Neurosciences</div>
+              <div class="row-sub">Memorial University of Newfoundland · 2026</div>
+              <div class="row-note">cGPA <span style="color: var(--teal); font-weight: 600;">4.0 / 4.0</span> · Systems Neuroscience, Biostatistics</div>
+            </div>
+          </div>
+          <div class="seg-row">
+            <div class="dot dot-blue"></div>
+            <div>
+              <div class="row-main">M.S. Genetic Engineering &amp; Biotechnology</div>
+              <div class="row-sub">University of Rajshahi, Bangladesh · 2017</div>
+              <div class="row-note">cGPA <span style="color: var(--teal); font-weight: 600;">3.71 / 4.0</span></div>
+            </div>
+          </div>
+          <div class="seg-row">
+            <div class="dot dot-gray"></div>
+            <div>
+              <div class="row-main">B.Sc. Genetic Engineering &amp; Biotechnology</div>
+              <div class="row-sub">University of Rajshahi, Bangladesh · 2015</div>
+              <div class="row-note">cGPA <span style="color: var(--teal); font-weight: 600;">3.75 / 4.0</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-btns">
+        <a href="CV_Zia_Hasan.pdf" class="btn-p" download>
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CV
+        </a>
+        <a href="#publications" class="btn-o">View Publications →</a>
+        <a href="mailto:smzhasan@mun.ca" class="btn-o">Get in Touch</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- EXPERTISE -->
+<!-- EXPERTISE (Active by default) -->
+<section id="expertise" class="page-section active-section">
+  <div class="sec-w">
+    <div class="sec-hd reveal"><span class="sec-tag">Expertise</span><div class="sec-line"></div><span class="sec-num">01</span></div>
+
+    <div class="seg reveal">
+      <div class="seg-label">Core Competencies</div>
+      <div class="seg-rows">
+        
+        <div class="seg-row">
+          <div class="dot dot-blue"></div>
+          <div>
+            <div class="row-main">Dry Lab: Bioinformatics &amp; Programming</div>
+            <div class="row-sub">End-to-end R/Python pipelines for multi-omics · scRNA-seq, snRNA-seq, snATAC-seq &amp; whole-genome methylation · HPC large-scale data processing</div>
+          </div>
+        </div>
+
+        <div class="seg-row">
+          <div class="dot dot-teal"></div>
+          <div>
+            <div class="row-main">Wet Lab: Genomics &amp; Sequencing</div>
+            <div class="row-sub">Strong practical expertise in single-cell, single-nucleus &amp; bulk sequencing workflows · NGS library preparation · Nuclei isolation for multi-omics · Expertise in molecular validation</div>
+          </div>
+        </div>
+
+        <div class="seg-row">
+          <div class="dot dot-amber"></div>
+          <div>
+            <div class="row-main">Molecular &amp; Diagnostic Techniques</div>
+            <div class="row-sub">qPCR · Western blotting · Immunohistochemistry (IHC) · DNA/RNA isolation · PCR-based diagnostic assays for pathogen identification</div>
+          </div>
+        </div>
+        
+        <div class="seg-row">
+          <div class="dot dot-rose"></div>
+          <div>
+            <div class="row-main">Microbial Biology</div>
+            <div class="row-sub">Broad experience in microbial culture · Biochemical and molecular based pathogen identification and characterization</div>
+          </div>
+        </div>
+
+        <div class="seg-row">
+          <div class="dot dot-green"></div>
+          <div>
+            <div class="row-main">Data Curation &amp; Reproducibility</div>
+            <div class="row-sub">NCBI GEO (GSE272794) &amp; GenBank (MG735450, MG948561, MH071191) submissions · Version-controlled, reproducible workflows (GitHub)</div>
+          </div>
+        </div>
+
+        <div class="seg-row">
+          <div class="dot dot-gray"></div>
+          <div>
+            <div class="row-main">Creative &amp; Technical Digital Skills</div>
+            <div class="row-sub">Scientific figure design (Adobe Illustrator &amp; Photoshop) · Web development (HTML/CSS/JS) · iOS app development · Basic digital marketing tools</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- EXPERIENCE -->
+<section id="experience" class="page-section">
+  <div class="sec-w">
+    <div class="sec-hd reveal"><span class="sec-tag">Experience</span><div class="sec-line"></div><span class="sec-num">02</span></div>
+
+    <div class="seg reveal">
+      <div class="seg-label">Academic &amp; Research Positions</div>
+      <div class="tl-rows">
+        <div class="tl-row">
+          <div class="tl-dot-col"><div class="tl-dot on"></div></div>
+          <div class="tl-body">
+            <div class="tl-date">02 / 2026 — Present</div>
+            <div class="tl-role">Postdoctoral Fellow</div>
+            <div class="tl-org">Memorial University, Faculty of Medicine · St. John's</div>
+            <ul class="tl-pts">
+              <li>Lead Spatial-DMT and multi-omics (snATAC-seq and scRNA-seq) program for cell-type–resolved neurodegenerative pathology signatures</li>
+              <li>Build reproducible R/Python workflows and QC criteria for spatial multi-omics preprocessing and integration</li>
+              <li>Communicate findings through publication-ready figures and stakeholder summaries</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-dot-col"><div class="tl-dot"></div></div>
+          <div class="tl-body">
+            <div class="tl-date">09 / 2019 — 02 / 2026</div>
+            <div class="tl-role">PhD Researcher</div>
+            <div class="tl-org">Memorial University, Neurosciences · St. John's</div>
+            <ul class="tl-pts">
+              <li>Multi-cohort multi-omics study in pretangle tau-based rat model (snRNA-seq, snATAC-seq, methylation, Western blot, behavioural)</li>
+              <li>Built the lab's single-nucleus genomics platform; nuclei isolation protocol published on protocols.io</li>
+              <li>Datasets on NCBI GEO (GSE272794); analysis code released on GitHub</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-dot-col"><div class="tl-dot"></div></div>
+          <div class="tl-body">
+            <div class="tl-date">11 / 2022 — 01 / 2023</div>
+            <div class="tl-role">Visiting Researcher</div>
+            <div class="tl-org">Dr. Kanae Ando Lab · Tokyo Metropolitan University, Japan</div>
+            <ul class="tl-pts">
+              <li>PhD project related training and collaboration</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-dot-col"><div class="tl-dot"></div></div>
+          <div class="tl-body">
+            <div class="tl-date">2016 — 2018</div>
+            <div class="tl-role">Research Fellow</div>
+            <div class="tl-org">Ministry of Science and Technology · Bangladesh</div>
+            <ul class="tl-pts">
+              <li>Microbial isolation and molecular characterization; three GenBank submissions (MG735450, MG948561, MH071191)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-dot-col"><div class="tl-dot"></div></div>
+          <div class="tl-body">
+            <div class="tl-date">2014 — 2016</div>
+            <div class="tl-role">Research Assistant (Part-time)</div>
+            <div class="tl-org">Joarder DNA &amp; Chromosome Research Lab · University of Rajshahi</div>
+            <ul class="tl-pts">
+              <li>Bacterial/fungal isolation, PCR, 16S/ITS sequencing; plant pathology on <em>Xanthomonas</em>, <em>Cercospora</em>, <em>Colletotrichum</em></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seg reveal">
+      <div class="seg-label">Industry</div>
+      <div class="seg-rows">
+        <div class="seg-row">
+          <div class="dot dot-amber"></div>
+          <div>
+            <div class="row-main">Executive, Research &amp; Development</div>
+            <div class="row-sub">Apex Biotechnology Laboratory · Bangladesh</div>
+            <div class="row-note">11 / 2018 — 08 / 2019</div>
+            <div class="row-desc">Pilot-scale fermentation, bioreactor validation, PCR diagnostics, and protocol documentation for process reproducibility</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seg reveal">
+      <div class="seg-label">Teaching &amp; Service</div>
+      <div class="seg-rows">
+        <div class="seg-row">
+          <div class="dot dot-teal"></div>
+          <div style="flex:1">
+            <div class="row-main">Executive Director of Communications</div>
+            <div class="row-sub">Graduate Students' Union, MUN</div>
+            <div class="row-note">Twice elected</div>
+          </div>
+          <div class="row-right"><span class="yr">2021–2023</span></div>
+        </div>
+        <div class="seg-row">
+          <div class="dot dot-blue"></div>
+          <div style="flex:1">
+            <div class="row-main">Teaching Assistant · BIOL 1001 &amp; BIOL 2041</div>
+            <div class="row-sub">Memorial University of Newfoundland</div>
+          </div>
+          <div class="row-right"><span class="yr">2020–2021</span></div>
+        </div>
+        <div class="seg-row">
+          <div class="dot dot-gray"></div>
+          <div style="flex:1">
+            <div class="row-main">General Secretary</div>
+            <div class="row-sub">Bangladeshi Graduate Students' Group, MUN</div>
+          </div>
+          <div class="row-right"><span class="yr">2019–2023</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PUBLICATIONS -->
+<section id="publications" class="page-section">
+  <div class="sec-w">
+    <div class="sec-hd reveal"><span class="sec-tag">Publications</span><div class="sec-line"></div><span class="sec-num">03</span></div>
+
+    <!-- I. PEER-REVIEWED -->
+    <div class="seg reveal">
+      <div class="seg-label">Selected Peer-Reviewed Articles</div>
+      <div class="seg-rows">
+        
+        <div class="seg-row">
+          <div class="dot dot-teal"></div>
+          <div style="flex:1">
+            <span class="row-badge rb-co1st">Co-First Author †</span>
+            <div class="row-main">Sex and life experience shape locus coeruleus pretangle tau pathology</div>
+            <div class="row-sub" style="font-style:italic;color:var(--teal)">Alzheimer's &amp; Dementia · 22(3), e71285</div>
+            <div class="row-note">Hasan, Z.†, Torraville, S. E.†, Omoluabi, T., et al.</div>
+          </div>
+          <div class="row-right"><span class="yr">2026</span></div>
+        </div>
+        
+        <div class="seg-row">
+          <div class="dot dot-blue"></div>
+          <div style="flex:1">
+            <span class="row-badge rb-co">Co-Author</span>
+            <div class="row-main">Sex differences in neuromodulatory subcortical systems and their implications for Alzheimer's disease</div>
+            <div class="row-sub" style="font-style:italic;color:var(--teal)">Alzheimer's &amp; Dementia · 22(3), e71291</div>
+            <div class="row-note">Rae, R. J., Alberhasky, J. M. H., ... Hasan, Z., et al.</div>
+          </div>
+          <div class="row-right"><span class="yr">2026</span></div>
+        </div>
+
+        <div class="seg-row">
+          <div class="dot dot-indigo"></div>
+          <div style="flex:1">
+            <span class="row-badge rb-co">Co-Author</span>
+            <div class="row-main">Second-order threat conditioning in the amygdala-posterior piriform cortex network</div>
+            <div class="row-sub" style="font-style:italic;color:var(--teal)">Communications Biology · 8(1), 1–18</div>
+            <div class="row-note">Sepahvand, T., Qin, T., Hasan, Z., et al.</div>
+          </div>
+          <div class="row-right"><span class="yr">2025</span></div>
+        </div>
+
+        <div class="seg-row">
+          <div class="dot dot-amber"></div>
+          <div style="flex:1">
+            <span class="row-badge rb-co1st">Co-First Author †</span>
+            <div class="row-main">Locus coeruleus vulnerability to tau hyperphosphorylation in a rat model</div>
+            <div class="row-sub" style="font-style:italic;color:var(--teal)">Aging Cell · 24(3), e14405</div>
+            <div class="row-note">Omoluabi, T.†, Hasan, Z.†, et al. · † Equal contribution</div>
+          </div>
+          <div class="row-right"><span class="yr">2025</span></div>
+        </div>
+
+        <div class="seg-row">
+          <div class="dot dot-gray"></div>
+          <div style="flex:1">
+            <span class="row-badge rb-co">Co-Author</span>
+            <div class="row-main">Hippocampal hyperphosphorylated tau-induced deficiency is rescued by L-type calcium channel blockade</div>
+            <div class="row-sub" style="font-style:italic;color:var(--teal)">Brain Communications · 6(2)</div>
+            <div class="row-note">Crossley, Q. Y. C., Omoluabi, T., Torraville, S. E., Hasan, Z., et al.</div>
+          </div>
+          <div class="row-right"><span class="yr">2024</span></div>
+        </div>
+
+      </div>
+    </div>
+
+<!-- II. NON-PEER-REVIEWED -->
+    <div class="seg reveal">
+      <div class="seg-label">Preprints, Protocols &amp; Presentations</div>
+      <div class="seg-rows">
+        
+        <div class="seg-row">
+          <div class="dot dot-rose"></div>
+          <div style="flex:1">
+            <span class="row-badge rb-first">First Author</span>
+            <div class="row-main">Updating the Reference Genome from mRatBN7.2 to GRCr8 Improves Single-Nucleus RNA-Sequencing Sensitivity in the Rat Brain</div>
+            <div class="row-sub">Manuscript In Preparation</div>
+            <div class="row-note">Hasan, Z., Benoukraf, T., &amp; Yuan, Q.</div>
+          </div>
+          <div class="row-right"><span class="yr">2026</span></div>
+        </div>
+
+        <!-- MOVED AAIC 2026 ENTRY -->
+        <div class="seg-row">
+          <div class="dot dot-amber"></div>
+          <div style="flex:1">
+            <div class="row-main">Sex and Life Experience Converge on Hippocampal Transcriptomic Responses in a Locus Coeruleus Pretangle Tau Model</div>
+            <div class="row-sub">Alzheimer’s Association International Conference (AAIC) · London, UK</div>
+            <div class="row-note">Hasan, Z., Benoukraf, T., &amp; Yuan, Q.</div>
+          </div>
+          <div class="row-right"><span class="yr">2026</span></div>
+        </div>
+
+        <div class="seg-row">
+          <div class="dot dot-teal"></div>
+          <div style="flex:1">
+            <span class="row-badge rb-first">First Author</span>
+            <div class="row-main">Nuclei Isolation Protocol from Fresh and Frozen Tissue for Single-Nucleus RNA-Seq and ATAC-Seq</div>
+            <div class="row-sub">protocols.io</div>
+            <div class="row-note">Hasan, Z., Benoukraf, T., &amp; Yuan, Q.</div>
+          </div>
+          <div class="row-right"><span class="yr">2025</span></div>
+        </div>
+
+        <div class="seg-row">
+          <div class="dot dot-blue"></div>
+          <div style="flex:1">
+            <div class="row-main">Life Experience Tunes Cell Type-Specific Transcriptomic Responses to Early Tau Pathology</div>
+            <div class="row-sub">BioMedicine Graduate Symposium · St. John’s, NL</div>
+            <div class="row-note">Hasan, Z., et al.</div>
+          </div>
+          <div class="row-right"><span class="yr">2025</span></div>
+        </div>
+
+        <div class="seg-row">
+          <div class="dot dot-indigo"></div>
+          <div style="flex:1">
+            <div class="row-main">Environmental modulation of early tau pathology in Alzheimer’s disease: A pretangle-tau rat model</div>
+            <div class="row-sub">Alzheimer’s Association International Conference (AAIC) · Toronto, ON</div>
+            <div class="row-note">Hasan, Z., et al.</div>
+          </div>
+          <div class="row-right"><span class="yr">2025</span></div>
+        </div>
+
+        <div class="seg-row">
+          <div class="dot dot-green"></div>
+          <div style="flex:1">
+            <div class="row-main">Postnatal stress exacerbates, while enrichment mitigates, locus coeruleus pretangle tau-induced gene alterations...</div>
+            <div class="row-sub">Canadian Neuroscience Meeting (CAN 2025) · Toronto, ON</div>
+            <div class="row-note">Hasan, Z., et al.</div>
+          </div>
+          <div class="row-right"><span class="yr">2025</span></div>
+        </div>
+
+        <div class="seg-row">
+          <div class="dot dot-gray"></div>
+          <div style="flex:1">
+            <div class="row-main">The effect of environmental factors in a rat pretangle tau model of Alzheimer’s disease: A single-nuclei transcriptomics study</div>
+            <div class="row-sub">Society for Neuroscience (SfN) Annual Meeting · Washington, DC</div>
+            <div class="row-note">Hasan, Z., et al.</div>
+          </div>
+          <div class="row-right"><span class="yr">2023</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- OPEN DATA CALLOUT -->
+    <div class="note-row reveal">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span><strong>Open Data &amp; Code —</strong> Datasets on <a href="https://www.ncbi.nlm.nih.gov/gds/?term=GSE272794" target="_blank">NCBI GEO (GSE272794)</a>. Analysis code on <a href="https://github.com/ziahasanz" target="_blank">GitHub</a>. Nuclei isolation protocol on <a href="https://dx.doi.org/10.17504/protocols.io.14egn228zg5d/v1" target="_blank">protocols.io</a>. GenBank: MG735450, MG948561, MH071191.</span>
+    </div>
+    
+  </div>
+</section>
+
+
+<!-- AWARDS -->
+<section id="awards" class="page-section">
+  <div class="sec-w">
+    <div class="sec-hd reveal visible" style="transition-delay: 0ms;"><span class="sec-tag">Awards</span><div class="sec-line"></div><span class="sec-num">04</span></div>
+
+    <div class="seg reveal visible" style="transition-delay: 70ms;">
+      <div class="seg-label">Fellowships &amp; Awards</div>
+      <div class="seg-rows">
+        
+        <div class="seg-row">
+          <div class="dot dot-amber"></div>
+          <div style="flex:1">
+            <div class="row-main">Fellow of the School of Graduate Studies</div>
+            <div class="row-sub">School of Graduate Studies, MUN</div>
+          </div>
+          <div class="row-right"><span class="yr">2025–26</span></div>
+        </div>
+
+        <div class="seg-row">
+          <div class="dot dot-teal"></div>
+          <div style="flex:1">
+            <div class="row-main">Best PhD Oral Presentation (3rd, Neurosciences)</div>
+            <div class="row-sub">Faculty of Medicine, MUN · <span style="color: var(--teal); font-weight: 600;">CA$125</span></div>
+          </div>
+          <div class="row-right"><span class="yr">2025</span></div>
+        </div>
+        
+        <div class="seg-row">
+          <div class="dot dot-blue"></div>
+          <div style="flex:1">
+            <div class="row-main">Apu Akbar Memorial Award</div>
+            <div class="row-sub">School of Graduate Studies, MUN · <span style="color: var(--teal); font-weight: 600;">CA$500</span></div>
+          </div>
+          <div class="row-right"><span class="yr">2023</span></div>
+        </div>
+        
+        <div class="seg-row">
+          <div class="dot dot-indigo"></div>
+          <div style="flex:1">
+            <div class="row-main">ARC-NL Fellowship</div>
+            <div class="row-sub">Aging Research Centre, NL · <span style="color: var(--teal); font-weight: 600;">CA$20,000</span></div>
+          </div>
+          <div class="row-right"><span class="yr">2020–22</span></div>
+        </div>
+        
+        <div class="seg-row">
+          <div class="dot dot-rose"></div>
+          <div style="flex:1">
+            <div class="row-main">Dean's Building a Healthy Tomorrow Award</div>
+            <div class="row-sub">Faculty of Medicine, MUN · <span style="color: var(--teal); font-weight: 600;">CA$2,544</span></div>
+          </div>
+          <div class="row-right"><span class="yr">2021–22</span></div>
+        </div>
+        
+        <div class="seg-row">
+          <div class="dot dot-green"></div>
+          <div style="flex:1">
+            <div class="row-main">Dr. Angus J. Neary Genetics Scholarship</div>
+            <div class="row-sub">Faculty of Medicine, MUN · <span style="color: var(--teal); font-weight: 600;">CA$2,831</span></div>
+          </div>
+          <div class="row-right"><span class="yr">2020–21</span></div>
+        </div>
+        
+        <div class="seg-row">
+          <div class="dot dot-teal"></div>
+          <div style="flex:1">
+            <div class="row-main">Dean's Fellowship Award</div>
+            <div class="row-sub">Faculty of Medicine, MUN · <span style="color: var(--teal); font-weight: 600;">CA$80,000</span></div>
+          </div>
+          <div class="row-right"><span class="yr">2019–23</span></div>
+        </div>
+        
+        <div class="seg-row">
+          <div class="dot dot-blue"></div>
+          <div style="flex:1">
+            <div class="row-main">NST Fellowship</div>
+            <div class="row-sub">Ministry of Science &amp; Technology, Bangladesh · <span style="color: var(--teal); font-weight: 600;">CA$1,000</span></div>
+          </div>
+          <div class="row-right"><span class="yr">2016–17</span></div>
+        </div>
+        
+        <div class="seg-row">
+          <div class="dot dot-gray"></div>
+          <div style="flex:1">
+            <div class="row-main">Talent Scholarship (Tuition Waiver)</div>
+            <div class="row-sub">University of Rajshahi, Bangladesh</div>
+          </div>
+          <div class="row-right"><span class="yr">2015–16</span></div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-w">
+    <div class="footer-links">
+      <a href="mailto:smzhasan@mun.ca">Email</a>
+      <a href="https://linkedin.com/in/smziahasan/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/ziahasanz" target="_blank">GitHub</a>
+      <a href="https://researchgate.net/profile/Zia-Hasan-2" target="_blank">ResearchGate</a>
+      <a href="https://scholar.google.com/citations?user=hqlMkcQAAAAJ" target="_blank">Google Scholar</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('mobNav').classList.toggle('open');
+  document.getElementById('hbg').classList.toggle('x');
+}
+document.addEventListener('click', e => {
+  const m = document.getElementById('mobNav'), h = document.getElementById('hbg');
+  if (!m.contains(e.target) && !h.contains(e.target)) { m.classList.remove('open'); h.classList.remove('x'); }
+});
+
+// Staggered reveal
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      const sibs = [...e.target.parentElement.children].filter(c => c.classList.contains('reveal'));
+      const idx = sibs.indexOf(e.target);
+      e.target.style.transitionDelay = Math.min(idx * 70, 280) + 'ms';
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: .12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Scroll progress + active nav
+const secs = [...document.querySelectorAll('section[id]')];
+const navAs = [...document.querySelectorAll('.nav-r a:not(.nav-btn)')];
+const progress = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progress.style.width = pct + '%';
+  const s = window.scrollY + 130;
+  secs.forEach(sec => {
+    if (s >= sec.offsetTop && s < sec.offsetTop + sec.offsetHeight)
+      navAs.forEach(a => a.style.color = a.getAttribute('href') === '#' + sec.id ? 'var(--teal)' : '');
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
